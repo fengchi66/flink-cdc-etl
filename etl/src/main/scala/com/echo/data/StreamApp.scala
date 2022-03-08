@@ -8,7 +8,7 @@ import java.util.Properties
 
 object StreamApp {
 
-  val TOPIC = "cdc.orders.orders"
+  val TOPIC = "cdc2.inventory.test"
 
   def main(args: Array[String]): Unit = {
 
@@ -17,7 +17,7 @@ object StreamApp {
     env.enableCheckpointing(30000)
 
     val properties = new Properties()
-    properties.setProperty("bootstrap.servers", "kafka_dev:9092")
+    properties.setProperty("bootstrap.servers", "ecs01:9092")
     properties.setProperty("group.id", "testGroup")
 
     val kafkaConsumer = new FlinkKafkaConsumer[String](TOPIC, new SimpleStringSchema(), properties)
