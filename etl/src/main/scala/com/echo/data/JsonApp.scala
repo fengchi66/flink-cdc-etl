@@ -23,22 +23,40 @@ object JsonApp {
 
     tableEnv.executeSql(
       """
-        |CREATE TABLE customers (
+        |CREATE TABLE orders (
         |  id BIGINT,
-        |  first_name STRING,
-        |  last_name STRING,
-        |  email STRING
+        |  type BIGINT,
+        |  status BIGINT,
+        |  buyer_id BIGINT,
+        |  seller_id BIGINT,
+        |  price DECIMAL(20),
+        |  deposit_price DECIMAL(20),
+        |  final_price DECIMAL(20),
+        |  express_price DECIMAL(20),
+        |  coupon_price DECIMAL(20),
+        |  paid_at TIMESTAMP(3),
+        |  express_id BIGINT,
+        |  express_created_at TIMESTAMP(3),
+        |  finished_at TIMESTAMP(3),
+        |  created_at TIMESTAMP(3),
+        |  updated_at TIMESTAMP(3),
+        |  transaction_id BIGINT,
+        |  package_id BIGINT,
+        |  expire_at TIMESTAMP(3),
+        |  sub_mch_id STRING,
+        |  related_id BIGINT,
+        |  recharge_stage BIGINT
         |) WITH (
         | 'connector' = 'kafka',
-        | 'topic' = 'json.cdc.inventory.customers',
-        | 'properties.bootstrap.servers' = 'ecs01:9092',
+        | 'topic' = 'cdc.orders.orders',
+        | 'properties.bootstrap.servers' = 'kafka_dev:9092',
         | 'properties.group.id' = 'testGroup',
         | 'format' = 'debezium-json',
         | 'scan.startup.mode' = 'earliest-offset'
         |)
         |""".stripMargin)
 
-    tableEnv.executeSql("SELECT id, COUNT(1) FROM customers GROUP BY id").print()
+    tableEnv.executeSql("SELECT * FROM orders").print()
   }
 
 }

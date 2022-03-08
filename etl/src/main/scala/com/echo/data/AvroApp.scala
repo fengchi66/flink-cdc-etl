@@ -31,7 +31,7 @@ object AvroApp {
         |) WITH (
         | 'connector' = 'kafka',
         | 'topic' = 'cdc.inventory.customers',
-        | 'properties.bootstrap.servers' = 'ecs01:9092',
+        | 'properties.bootstrap.servers' = 'kafka_dev:9092',
         | 'properties.group.id' = 'testGroup',
         | 'format' = 'debezium-avro-confluent',
         | 'scan.startup.mode' = 'earliest-offset',
